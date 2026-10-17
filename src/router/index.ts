@@ -9,7 +9,9 @@ import EventLayoutView from '@/views/event/LayoutView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import NetworkErrorView from '@/views/NetworkErrorView.vue'
 import nProgress from 'nprogress'
+import AddEventView from '@/views/event/EventFormView.vue'
 import { useEventStore } from '@/stores/event'
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -24,6 +26,11 @@ const router = createRouter({
       name: 'about',
       component: AboutView,
     },
+      {
+        path: '/add-event',
+        name: 'add-event',
+        component: AddEventView,
+      },
     {
       path: '/event/:id',
       name: 'event-layout-view',

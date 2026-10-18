@@ -34,7 +34,7 @@ onMounted(() => {
 <template>
   <h1>Events For Good</h1>
   <div class="flex flex-col items-center">
-    <EventCard v-for="event in events" :key="event.id" :event="event" />
+    <EventCard v-for="event in events" :key="event.id ?? undefined" :event="event" />
 
     <div class="pagination">
       <RouterLink

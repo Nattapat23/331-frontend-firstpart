@@ -35,18 +35,6 @@ const { message } = storeToRefs(store)
             exact-active-class="text-green-500"
             :to="{ name: 'add-event' }"
             >New Event</RouterLink>
-          |
-          <RouterLink
-            class="font-bold text-gray-700"
-            exact-active-class="text-green-500"
-            :to="{ name: 'organizer-list-view' }"
-            >Organizers</RouterLink>
-          |
-          <RouterLink
-            class="font-bold text-gray-700"
-            exact-active-class="text-green-500"
-            :to="{ name: 'add-organizer' }"
-            >New Organizer</RouterLink>
         </nav>
       </div>
     </header>

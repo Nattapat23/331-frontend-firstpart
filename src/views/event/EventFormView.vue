@@ -1,10 +1,12 @@
 <script setup lang="ts">
-import type { Event } from '@/types'; 
-import { ref } from 'vue';
+import type { Event, Organizer } from '@/types'; 
+import { onMounted, ref } from 'vue';
 import EventService from '@/services/EventService';
 import { useRouter } from 'vue-router';
 import { useMessageStore } from '@/stores/message';
 import BaseInput from '@/components/BaseInput.vue';
+import BaseSelect from '@/components/BaseSelect.vue';
+import OrganizerService from '@/services/OrganizerService';
 
 const event = ref<Event>({
     id: null,
@@ -36,6 +38,17 @@ function saveEvent() {
             console.error('network-error-view'); 
         });
 }
+
+const organizers = ref<Organizer[]>([]);
+onMounted(() => {
+    OrganizerService.getOrganizers()
+        .then((response) =>{
+            organizers.value = response.data;
+        })
+        .catch(() => {
+            router.push({ name: 'network-error-view' });
+        });
+})
 </script>
 
 <template>
@@ -48,7 +61,9 @@ function saveEvent() {
             <BaseInput v-model="event.description" type="text" label="Description" />
             <h3>Where & when is your event?</h3>
             <BaseInput v-model="event.location" type="text" label="Location" />
-            <button class="flex w-fit mx-auto items-center justify-center h-13 px-10 rounded-md font-semibold whitespace-nowrap border border-gray-400 focus:border-emerald-500 transition-all duration-200 ease-linear hover:scale-105 hover:border-emerald-500 hover:shadow-lg active:scale-100 focus:outline-none" type="submit">Submit</button>
+            <h3>Who is your organizer?</h3>
+            <BaseSelect v-model="event.organizer.id" :options="organizers" label="Select an Organizer" />
+            <button class="button flex w-fit mx-auto items-center justify-center h-13 px-10 rounded-md font-semibold whitespace-nowrap border border-gray-400 focus:border-emerald-500 transition-all duration-200 ease-linear hover:scale-105 hover:border-emerald-500 hover:shadow-lg active:scale-100 focus:outline-none" type="submit">Submit</button>
 
         </form>
 

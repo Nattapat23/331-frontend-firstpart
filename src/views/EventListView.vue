@@ -22,6 +22,7 @@ const page = computed(() => props.page)
 const keyword = ref('')
 function updateKeyword() {
   let queryFunction
+  const searchKeyword = keyword.value
   if (keyword.value === '') {
     queryFunction = EventService.getEvents(3, page.value)
   } else {
@@ -29,6 +30,8 @@ function updateKeyword() {
   }
   queryFunction
     .then((response) => {
+      // ignore responses from an older keyword that arrive late
+      if (searchKeyword !== keyword.value) return
       events.value = response.data
       console.log('events', events.value)
       totalEvents.value = response.headers['x-total-count']
